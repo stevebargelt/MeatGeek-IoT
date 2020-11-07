@@ -182,7 +182,7 @@
             "DatabaseName": "[variables('cosmosDbDatabaseName')]",
             "CollectionName": "[variables('cosmosDbCollectionName')]",
             "AzureWebJobsSecretStorageType": "Files",
-            // "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/63d2304d65c44e498348974d839945b8)",
+            "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/63d2304d65c44e498348974d839945b8)",
             "WEBSITE_CONTENTSHARE": "meatgeekiotfunctionsapp"
           },
           "dependsOn": [
