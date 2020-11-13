@@ -23,8 +23,8 @@ namespace MeatGeek.IoT
         [FunctionName("MeatGeekIoTHubTrigger")]
         public static async Task IoTHubTrigger([IoTHubTrigger("messages/events", Connection = "IoTHubConnection")] SmokerStatus[] smokerStatuses,
             [CosmosDB(
-                databaseName: "Inferno",
-                collectionName: "status",
+                databaseName: "iot",
+                collectionName: "telemetry",
                 ConnectionStringSetting = "CosmosDBConnection")]
             IAsyncCollector<SmokerStatus> smokerStatusOut,
             ILogger log)
