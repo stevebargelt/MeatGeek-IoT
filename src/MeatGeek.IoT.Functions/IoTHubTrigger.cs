@@ -36,11 +36,12 @@ namespace MeatGeek.IoT
             {
                 try
                 {
-                    //TODOL How to get smoker id (IOT ID) from the event??
+                    //TODO: How to get smoker id (IOT ID) from the event??
                     //var messageBody = Encoding.UTF8.GetString(smokerStatusData.Body.Array, smokerStatusData.Body.Offset, smokerStatusData.Body.Count);
                     var smokerStatusString = JsonConvert.SerializeObject(smokerStatus);
                     log.LogInformation($"SmokerStatus: {smokerStatusString}"); 
-                    smokerStatus.PartitionKey = $"inferno1-{DateTime.UtcNow:yyyy-MM}";
+                    log.LogInformation($"SmokerID: {smokerStatus.SmokerId}");
+                    smokerStatus.PartitionKey = $"{smokerStatus.SmokerId}-{DateTime.UtcNow:yyyy-MM}";
                     // Set the TTL to expire the document after 15 days if it's not set elsewhere.
                     //  - if it's set elsewhere the data might be part of a "cook" /session, if not
                     //    we can purge the data in 15 days.
