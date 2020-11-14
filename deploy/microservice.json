@@ -177,10 +177,6 @@
             "CosmosDBConnection": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/e9229de8023549308c8771ddcc5d5268)",
             "IoTHubConnection": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IoTHubConnection-MeatGeek/d0c43eecb18b4722bb043d69a9edfc84)",
             "AzureWebJobStorage": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/63d2304d65c44e498348974d839945b8)",
-            "CosmosDbAccountEndpointUrl": "[reference(variables('cosmosDbAccountName')).documentEndpoint]",
-            "CosmosDbAccountKey": "[listKeys(variables('cosmosDbAccountName'),'2015-04-08').primaryMasterKey]",
-            "DatabaseName": "[variables('cosmosDbDatabaseName')]",
-            "CollectionName": "[variables('cosmosDbCollectionName')]",
             "AzureWebJobsSecretStorageType": "Files",
             "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/63d2304d65c44e498348974d839945b8)",
             "WEBSITE_CONTENTSHARE": "meatgeekiotfunctionsapp"
