@@ -6,7 +6,7 @@
     "applicationInsightsName": "meatgeek-iot-appinsights",
     "functionsAppServicePlanName": "meatgeek-iot-app-service-plan",
     "functionsApiAppName": "meatgeekiotapi",
-    "cosmosDbAccountName": "meatgeek-iot-telemetry",
+    "cosmosDbAccountName": "meatgeek-iot",
     "cosmosDbDatabaseName": "iot",
     "cosmosDbCollectionName": "telemetry",
     "storageAccountName": "mgiotstorage"

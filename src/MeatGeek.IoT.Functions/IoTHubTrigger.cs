@@ -21,7 +21,7 @@ namespace MeatGeek.IoT
     public static class MeatGeekIoTHubTrigger
     {
         [FunctionName("MeatGeekIoTHubTrigger")]
-        public static async Task IoTHubTrigger([IoTHubTrigger("messages/events", Connection = "IoTHubConnection")] SmokerStatus[] smokerStatuses,
+        public static async Task IoTHubTrigger([IoTHubTrigger("messages/events", Connection = "IoTHubConnection-MeatGeek")] SmokerStatus[] smokerStatuses,
             [CosmosDB(
                 databaseName: "iot",
                 collectionName: "telemetry",
@@ -31,7 +31,7 @@ namespace MeatGeek.IoT
         {
             var exceptions = new List<Exception>();
             log.LogInformation($"IoT Hub trigger function processing {smokerStatuses.Length} events.");
-
+            
             foreach (var smokerStatus in smokerStatuses)
             {
                 try
