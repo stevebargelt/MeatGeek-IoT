@@ -21,7 +21,7 @@ namespace MeatGeek.IoT
     public static class MeatGeekIoTHubTriggerTest
     {
         [FunctionName("MeatGeekIoTHubTriggerTest")]
-        public static void Run([IoTHubTrigger("messages", Connection = "IoTHubConnection", ConsumerGroup = "testreceiver")]EventData message, ILogger log)
+        public static void Run([IoTHubTrigger("samples-workitems", Connection = "IoTHubConnection", ConsumerGroup = "testreceiver2")]EventData message, ILogger log)
         {
             log.LogInformation($"MeatGeekIoTHubTriggerTest received a message: {Encoding.UTF8.GetString(message.Body.Array)}");
         
