@@ -4,7 +4,7 @@
   "parameters": {},
   "variables": {
     "applicationInsightsName": "meatgeek-iot-appinsights",
-    "functionsAppServicePlanName": "meatgeek-iot-app-service-plan",
+    "functionsAppServicePlanName": "ASP-MeatGeekIoT-9130",
     "functionsApiAppName": "meatgeekiotapi",
     "cosmosDbAccountName": "meatgeek-iot",
     "cosmosDbDatabaseName": "iot",
