@@ -37,9 +37,9 @@ namespace MeatGeek.IoT
         /// <returns></returns>
         [FunctionName("GetChart")]
         public  async Task<IActionResult> GetChart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{endtime:datetime?}/{timeseries:int?}")] HttpRequest req, 
-            DateTime starttime,
-            DateTime? endtime,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{endtime:alpha?}/{timeseries:int?}")] HttpRequest req, 
+            string starttime,
+            string? endtime,
             int? timeseries,
             ILogger log)        
         {
@@ -50,26 +50,31 @@ namespace MeatGeek.IoT
                 return new NotFoundResult();
             }
 
+            //TODO: try/catch this
+            DateTime StartDateTime = DateTime.Parse(starttime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+
             log.LogInformation("SmokerId = meatgeek2");
-            var StatusPartitionKey = $"meatgeek2-{starttime:yyyy-MM}";
+            var StatusPartitionKey = $"meatgeek2-{StartDateTime:yyyy-MM}";
             log.LogInformation($"Status PartitionKey = {StatusPartitionKey}");
 
-            var EndTime = endtime.HasValue ? endtime : DateTime.UtcNow;
-            log.LogInformation($"StartTime = {starttime} EndTime = {endtime}");
+            DateTime EndDateTime;
+            //TODO: try/catch this
+            if (String.IsNullOrEmpty(endtime)) {
+                EndDateTime = DateTime.UtcNow;
+            }
+            else {
+                EndDateTime = DateTime.Parse(endtime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            }
+
+            log.LogInformation($"StartTime = {StartDateTime} EndTime = {EndDateTime}");
 
             var container = _cosmosClient.GetContainer("iot", "telemetry");
 
             Microsoft.Azure.Cosmos.FeedIterator<SmokerStatus> query;
-            if (endtime.HasValue) {
-                query = container.GetItemLinqQueryable<SmokerStatus>(requestOptions: new QueryRequestOptions { PartitionKey = new Microsoft.Azure.Cosmos.PartitionKey(StatusPartitionKey) })
-                        .Where(p => p.CurrentTime >= starttime
-                                && p.CurrentTime <= EndTime)                            
-                        .ToFeedIterator();
-            } else {
-                query = container.GetItemLinqQueryable<SmokerStatus>(requestOptions: new QueryRequestOptions { PartitionKey = new Microsoft.Azure.Cosmos.PartitionKey(StatusPartitionKey) })
-                        .Where(p => p.CurrentTime >= starttime)
-                        .ToFeedIterator();
-            }
+            query = container.GetItemLinqQueryable<SmokerStatus>(requestOptions: new QueryRequestOptions { PartitionKey = new Microsoft.Azure.Cosmos.PartitionKey(StatusPartitionKey) })
+                    .Where(p => p.CurrentTime >= StartDateTime
+                            && p.CurrentTime <= EndDateTime)                            
+                    .ToFeedIterator();
 
             List<SmokerStatus> SmokerStatuses = new List<SmokerStatus>();
             var count = 0;

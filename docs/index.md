@@ -13,4 +13,5 @@ This is a general description
 
 ### Sending Times
 
-http://apiux.com/2013/03/20/5-laws-api-dates-and-times/
+[5 Laws of API Dates and Times](http://apiux.com/2013/03/20/5-laws-api-dates-and-times/)
+[REST API Dates and Times](https://stackoverflow.com/questions/9581692/recommended-date-format-for-rest-get-api)
