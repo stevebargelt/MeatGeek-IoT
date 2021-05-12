@@ -1,20 +1,16 @@
 using System;
-using System.IO;
-using System.Net;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Documents;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.Documents.Client;
-using Newtonsoft.Json;
 using MeatGeek.IoT.Models;
+using Microsoft.OpenApi.Models;
 
 namespace MeatGeek.IoT
 {

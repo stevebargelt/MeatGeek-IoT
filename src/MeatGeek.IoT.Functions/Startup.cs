@@ -7,6 +7,7 @@ using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MeatGeek.IoT.Configurations;
 
 [assembly: FunctionsStartup(typeof(MeatGeek.Sessions.Startup))]
 namespace MeatGeek.Sessions
@@ -21,6 +22,7 @@ namespace MeatGeek.Sessions
 
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            builder.Services.AddSingleton<AppSettings>();
             // Register the Cosmos DB client as a Singleton.
             builder.Services.AddSingleton<CosmosClient>((s) => {
                 var connectionString = configuration["CosmosDBConnection"];
