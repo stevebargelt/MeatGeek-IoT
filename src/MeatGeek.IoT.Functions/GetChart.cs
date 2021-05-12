@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Linq;
@@ -10,6 +11,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using MeatGeek.IoT.Models;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.OpenApi.Models;
 
 namespace MeatGeek.IoT
@@ -32,6 +35,13 @@ namespace MeatGeek.IoT
         /// <param name="timeseries"></param>
         /// <returns></returns>
         [FunctionName("GetChart")]
+        [OpenApiOperation(operationId: "GetChart", tags: new[] { "IoT" }, Summary = "Get chart data", Description = "Returns a list of SmokerStatus", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "starttime", In = ParameterLocation.Query, Required = true, Type = typeof(string), Summary = "starttime to return. URL Encoded ISO-8601.", Description = "starttime to return. URL Encoded ISO-8601.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "timeseries", In = ParameterLocation.Query, Required = false, Type = typeof(int), Summary = "timeseries is how often to sample the data. Integer between 0 and 60.", Description = "timeseries is how often to sample the data. Integer between 0 and 60.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "endtime", In = ParameterLocation.Query, Required = false, Type = typeof(string), Summary = "endtime of the series to return to return. URL Encoded ISO-8601.", Description = "endtime of the series to return. URL Encoded ISO-8601.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<SmokerStatus>), Summary = "successful operation", Description = "successful response")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid starttime supplied", Description = "Invalid starttime supplied")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.NotFound, Summary = "Data not found", Description = "Data not found")]
         public  async Task<IActionResult> GetChart(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{timeseries:int?}/{endtime:alpha?}")] HttpRequest req, 
             string starttime,
