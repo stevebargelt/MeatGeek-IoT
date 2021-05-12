@@ -183,14 +183,6 @@
             {
               "name": "CosmosDBConnection",
               "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/e9229de8023549308c8771ddcc5d5268)"
-            },
-            {
-              "name": "AzureWebJobStorage",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/63d2304d65c44e498348974d839945b8)"
-            },
-            {
-              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/75c08604b0a44ddc81349c5b87f41afa)"
             }
           ]
         }
