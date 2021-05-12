@@ -37,7 +37,7 @@ namespace MeatGeek.IoT
         /// <returns></returns>
         [FunctionName("GetChart")]
         public  async Task<IActionResult> GetChart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "/chart/{starttime}/{endtime:datetime?}/{timeseries:int?}")] HttpRequest req, 
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{endtime:datetime?}/{timeseries:int?}")] HttpRequest req, 
             DateTime starttime,
             DateTime? endtime,
             int? timeseries,
