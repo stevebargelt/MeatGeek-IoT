@@ -11,7 +11,7 @@ namespace MeatGeek.IoT.Configurations
         public override OpenApiInfo Info { get; set; } = new OpenApiInfo()
         {
             Version = "1.0.0",
-            Title = "MeatGeek Sessions API",
+            Title = "MeatGeek IoT API",
             Description = "An API for reading and managing MeatGeek IoT",
             TermsOfService = new Uri("https://github.com/stevebargelt"),
             Contact = new OpenApiContact()

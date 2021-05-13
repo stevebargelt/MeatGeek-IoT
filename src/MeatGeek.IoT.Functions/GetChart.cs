@@ -43,10 +43,12 @@ namespace MeatGeek.IoT
         [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid starttime supplied", Description = "Invalid starttime supplied")]
         [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.NotFound, Summary = "Data not found", Description = "Data not found")]
         public  async Task<IActionResult> GetChart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{timeseries:int?}/{endtime:alpha?}")] HttpRequest req, 
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "chart/{starttime}/{timeseries:int?}/{endtime?}")] HttpRequest req, 
             string starttime,
             int? timeseries,
+#nullable enable            
             string? endtime,
+#nullable disable            
             ILogger log)        
         {
 
