@@ -36,9 +36,9 @@ namespace MeatGeek.IoT
         /// <returns></returns>
         [FunctionName("GetChart")]
         [OpenApiOperation(operationId: "GetChart", tags: new[] { "IoT" }, Summary = "Get chart data", Description = "Returns a list of SmokerStatus", Visibility = OpenApiVisibilityType.Important)]
-        [OpenApiParameter(name: "starttime", In = ParameterLocation.Path, Required = true, Type = typeof(string), Summary = "starttime to return. URL Encoded ISO-8601. SUMMARY", Description = "starttime to return. URL Encoded ISO-8601. DESCRIPTION", Visibility = OpenApiVisibilityType.Important)]
-        [OpenApiParameter(name: "timeseries", In = ParameterLocation.Path, Required = false, Type = typeof(int), Summary = "timeseries is how often to sample the data. Integer between 0 and 60.", Description = "timeseries is how often to sample the data. Integer between 0 and 60.", Visibility = OpenApiVisibilityType.Important)]
-        [OpenApiParameter(name: "endtime", In = ParameterLocation.Path, Required = false, Type = typeof(string), Summary = "endtime of the series to return to return. URL Encoded ISO-8601.", Description = "endtime of the series to return. URL Encoded ISO-8601.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "starttime", In = ParameterLocation.Path, Required = true, Type = typeof(string), Summary = "2021-05-12T15%3A53%3A29.991Z", Description = "Where to start the data return URL Encoded ISO-8601.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "timeseries", In = ParameterLocation.Path, Required = false, Type = typeof(int), Summary = "15", Description = "Minutes to group the return data. Integer between 0 and 60.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "endtime", In = ParameterLocation.Path, Required = false, Type = typeof(string), Summary = "2021-05-12T22%3A22%3A15.675Z", Description = "Where to stop the data return. URL Encoded ISO-8601.", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<SmokerStatus>), Summary = "successful operation", Description = "successful response")]
         [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid starttime supplied", Description = "Invalid starttime supplied")]
         [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.NotFound, Summary = "Data not found", Description = "Data not found")]
