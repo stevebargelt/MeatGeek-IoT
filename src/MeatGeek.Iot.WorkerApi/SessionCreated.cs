@@ -21,13 +21,13 @@ namespace MeatGeek.IoT.WorkerApi
         //private static readonly ICategoriesService CategoriesService = new CategoriesService(new CategoriesRepository(), new ImageSearchService(new Random(), new HttpClient()), new SynonymService(new HttpClient()), new EventGridPublisherService());
 
         [FunctionName("SessionCreated")]
-        public static async Task<IActionResult> Run(
+        public static void Run(
             [EventGridTrigger]EventGridEvent eventGridEvent,
             ILogger log)
         {
         
             log.LogInformation("SessionCreated Called");
-            //log.LogInformation(eventGridEvent.Data.ToString());
+            log.LogInformation(eventGridEvent.Data.ToString());
             
             try
             {
@@ -38,12 +38,11 @@ namespace MeatGeek.IoT.WorkerApi
                 log.LogInformation("this worked, I think!!!!!!!");
                 //log.LogInformation("SessionID = " + sessionId);
 
-                return new OkResult();
             }
             catch (Exception ex)
             {
-                log.LogError("Unhandled exception", ex);
-                return new ExceptionResult(ex, false);
+                log.LogError(ex, "<-- SessionCreated Event Grid Trigger: Unhandled exception");
+                
             }
         }
 
