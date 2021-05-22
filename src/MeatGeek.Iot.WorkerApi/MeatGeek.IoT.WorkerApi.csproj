@@ -15,7 +15,10 @@
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi" Version="0.7.2-preview" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi.Core" Version="0.7.2-preview" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="3.0.2" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.7" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.12" />
+  </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\src\MeatGeek.Shared\MeatGeek.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
