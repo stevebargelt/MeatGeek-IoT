@@ -54,6 +54,6 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: Publish Deployment Scripts
     inputs:
-      pathToPublish: deploy
+      pathToPublish: meatgeek-iot/deploy
       artifactName: deploy
       artifactType: container
