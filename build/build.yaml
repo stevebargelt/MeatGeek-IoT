@@ -1,7 +1,26 @@
-# Builds the MeatGeek IoT microservice resources
-
 name: $(BuildID)
+
+resources:
+  repositories:
+    - repository: self
+      type: github
+      endpoint: stevebargelt
+      name: stevebargelt/MeatGeek-IoT
+      trigger:
+        branches:
+          include:
+            - main
+
+    - repository: shared
+      type: github
+      endpoint: stevebargelt
+      name: stevebargelt/MeatGeek-Shared
+
 steps:
+  - checkout: self
+  - checkout: shared
+    path: s/shared
+
   # Build the APIs
   - task: DotNetCoreCLI@1
     displayName: Run dotnet restore
