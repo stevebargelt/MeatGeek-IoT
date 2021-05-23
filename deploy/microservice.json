@@ -6,21 +6,23 @@
     "applicationInsightsName": "meatgeekiotapi",
     "functionsAppServicePlanName": "meatgeek-iot-app-service-plan",
     "functionsApiAppName": "meatgeekiotapi",
-    "cosmosDbAccountName": "meatgeek-iot",
     "storageAccountName": "mgiotstorage"
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2019-06-01",
+      "apiVersion": "2021-04-01",
       "name": "[variables('storageAccountName')]",
       "location": "westus2",
       "sku": {
         "name": "Standard_LRS",
         "tier": "Standard"
       },
-      "kind": "Storage",
+      "kind": "StorageV2",
       "properties": {
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": true,
+        "allowSharedKeyAccess": true,
         "networkAcls": {
           "bypass": "AzureServices",
           "virtualNetworkRules": [],
@@ -40,7 +42,8 @@
             }
           },
           "keySource": "Microsoft.Storage"
-        }
+        },
+        "accessTier": "Hot"
       }
     },
     {
