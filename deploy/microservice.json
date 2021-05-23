@@ -1,9 +1,9 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {},
   "variables": {
-    "applicationInsightsName": "meatgeek-iot-appinsights",
+    "applicationInsightsName": "meatgeekiotapi",
     "functionsAppServicePlanName": "meatgeek-iot-app-service-plan",
     "functionsApiAppName": "meatgeekiotapi",
     "cosmosDbAccountName": "meatgeek-iot",
@@ -153,6 +153,26 @@
         "siteConfig": {
           "appSettings": [
             {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-AppInsightsInstrumentationKey/7392e2189edd47e9a2aefd794af0ef81)"
+            },
+            {
+              "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-ApplicationInsightsConnectionString/8cc317edebe74dc1bde1c374f410b35c)"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/4b208141f28f4ed4ad0801c58eb42f73)"
+            },
+            {
+              "name": "CosmosDBConnection",
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/e9229de8023549308c8771ddcc5d5268)"
+            },
+            {
+              "name": "destinationmodules",
+              "value": "meatgeek2/Telemetry"
+            },
+            {
               "name": "FUNCTIONS_EXTENSION_VERSION",
               "value": "~3"
             },
@@ -161,28 +181,12 @@
               "value": "dotnet"
             },
             {
-              "name": "AzureWebJobsSecretStorageType",
-              "value": "Files"
-            },
-            {
-              "name": "WEBSITE_CONTENTSHARE",
-              "value": "meatgeekiotfunctionsapp"
-            },
-            {
-              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-              "value": "[reference(resourceId('Microsoft.Insights/components', variables('applicationInsightsName')), '2014-04-01').InstrumentationKey]"
-            },
-            {
-              "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
-              "value": "[concat('InstrumentationKey=', reference(resourceId('Microsoft.Insights/components', variables('applicationInsightsName')), '2014-04-01').InstrumentationKey)]"
-            },
-            {
               "name": "IoTHubConnection",
               "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IoTHubConnection-MeatGeek/1dc6b8f7974049a2bd6f33dac00615ec)"
             },
             {
-              "name": "CosmosDBConnection",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/e9229de8023549308c8771ddcc5d5268)"
+              "name": "MeatGeekIoTServiceConnection",
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/MeatGeekIoTServiceConnection/28d05c4415df4f3bb8d757c774335567)"
             }
           ]
         }
@@ -193,55 +197,9 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('functionsAppServicePlanName'))]"
       ]
-    },
-    {
-      "name": "[variables('cosmosDbAccountName')]",
-      "type": "Microsoft.DocumentDB/databaseAccounts",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2015-04-08",
-      "kind": "GlobalDocumentDB",
-      "properties": {
-        "publicNetworkAccess": "Enabled",
-        "enableAutomaticFailover": false,
-        "enableMultipleWriteLocations": false,
-        "isVirtualNetworkFilterEnabled": false,
-        "virtualNetworkRules": [],
-        "disableKeyBasedMetadataWriteAccess": false,
-        "enableFreeTier": false,
-        "enableAnalyticalStorage": false,
-        "createMode": "Default",
-        "databaseAccountOfferType": "Standard",
-        "consistencyPolicy": {
-          "defaultConsistencyLevel": "Session",
-          "maxIntervalInSeconds": 5,
-          "maxStalenessPrefix": 100
-        },
-        "locations": [
-          {
-            "locationName": "West US 2",
-            "provisioningState": "Succeeded",
-            "failoverPriority": 0,
-            "isZoneRedundant": false
-          }
-        ],
-        "cors": [],
-        "capabilities": [],
-        "ipRules": [],
-        "backupPolicy": {
-          "type": "Periodic",
-          "periodicModeProperties": {
-            "backupIntervalInMinutes": 240,
-            "backupRetentionIntervalInHours": 8
-          }
-        }
-      }
     }
   ],
   "outputs": {
-    "cosmosDbAccountName": {
-      "type": "string",
-      "value": "[variables('cosmosDbAccountName')]"
-    },
     "apiAppName": {
       "type": "string",
       "value": "[variables('functionsApiAppName')]"
