@@ -11,7 +11,7 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2021-01-01",
       "name": "[variables('storageAccountName')]",
       "location": "westus2",
       "sku": {
@@ -190,6 +190,14 @@
             {
               "name": "MeatGeekIoTServiceConnection",
               "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/MeatGeekIoTServiceConnection/28d05c4415df4f3bb8d757c774335567)"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('2394ff5d-4d73-4134-a00f-2385754aeeb5','MeatGeek-IoT','Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "meatgeekiotworker"
             }
           ]
         }
