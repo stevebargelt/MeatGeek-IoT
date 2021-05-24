@@ -11,12 +11,12 @@ using MeatGeek.Shared.EventSchemas.Sessions;
 
 namespace MeatGeek.IoT.WorkerApi
 {
-    public class SessionCreated
+    public class SessionCreatedTrigger
     {
 
-        private readonly ILogger<SessionCreated> _log;
+        private static ILogger<SessionCreatedTrigger> _log;
 
-        public SessionCreated(ILogger<SessionCreated> log) {
+        public SessionCreatedTrigger(ILogger<SessionCreatedTrigger> log) {
             _log = log;
         }
 
@@ -25,7 +25,7 @@ namespace MeatGeek.IoT.WorkerApi
         private const string MODULE_NAME = "Telemetry";
 
         [FunctionName("SessionCreated")]
-        public async Task<IActionResult> Run(
+        public static async Task Run(
             [EventGridTrigger]EventGridEvent eventGridEvent)
         {
             _log.LogInformation("SessionCreated Called");
@@ -67,12 +67,12 @@ namespace MeatGeek.IoT.WorkerApi
                     {
                         _log.LogWarning($"[{smokerId}/{MODULE_NAME}] Unsuccessful direct method call result code={result.Status}");
                     }
-                    return new ObjectResult(result);
+                    //return new ObjectResult(result);
                 }
                 catch (Exception e)
                 {
                     _log.LogError(e, $"[{smokerId}/{MODULE_NAME}] Exeception on direct method call");
-                    return new BadRequestObjectResult("Exception was caught in function app.");
+                    //return new BadRequestObjectResult("Exception was caught in function app.");
                 }               
 
             }
