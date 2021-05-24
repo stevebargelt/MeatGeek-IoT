@@ -40,9 +40,8 @@ namespace MeatGeek.IoT
                     var smokerStatusString = JsonConvert.SerializeObject(smokerStatus);
                     log.LogInformation($"SmokerStatus: {smokerStatusString}"); 
                     log.LogInformation($"SmokerID: {smokerStatus.SmokerId}");
-                    smokerStatus.PartitionKey = $"{smokerStatus.SmokerId}-{DateTime.UtcNow:yyyy-MM}";
                     if (smokerStatus.ttl is null || smokerStatus.ttl == 0 || smokerStatus.ttl == -1) {
-                        smokerStatus.ttl = 60 * 60 * 24 * 15;
+                        smokerStatus.ttl = 60 * 60 * 24 * 3;
                     }
                     await smokerStatusOut.AddAsync(smokerStatus);
                 }

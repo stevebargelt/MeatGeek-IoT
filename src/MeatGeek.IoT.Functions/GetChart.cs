@@ -60,10 +60,10 @@ namespace MeatGeek.IoT
 
             //TODO: try/catch this
             DateTime StartDateTime = DateTime.Parse(starttime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-
-            log.LogInformation("SmokerId = meatgeek2");
-            var StatusPartitionKey = $"meatgeek2-{StartDateTime:yyyy-MM}";
-            log.LogInformation($"Status PartitionKey = {StatusPartitionKey}");
+            
+            //TODO: Sent SmokerID as a parameter to function call
+            var SmokerId = "meatgeek2";
+            log.LogInformation("SmokerId = " + SmokerId);
 
             DateTime EndDateTime;
             //TODO: try/catch this
@@ -79,7 +79,7 @@ namespace MeatGeek.IoT
             var container = _cosmosClient.GetContainer("iot", "telemetry");
 
             Microsoft.Azure.Cosmos.FeedIterator<SmokerStatus> query;
-            query = container.GetItemLinqQueryable<SmokerStatus>(requestOptions: new QueryRequestOptions { PartitionKey = new Microsoft.Azure.Cosmos.PartitionKey(StatusPartitionKey) })
+            query = container.GetItemLinqQueryable<SmokerStatus>(requestOptions: new QueryRequestOptions { PartitionKey = new Microsoft.Azure.Cosmos.PartitionKey(SmokerId) })
                     .Where(p => p.CurrentTime >= StartDateTime
                             && p.CurrentTime <= EndDateTime)                            
                     .ToFeedIterator();

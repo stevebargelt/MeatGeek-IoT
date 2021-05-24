@@ -157,19 +157,19 @@
           "appSettings": [
             {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-AppInsightsInstrumentationKey/7392e2189edd47e9a2aefd794af0ef81)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-AppInsightsInstrumentationKey/)"
             },
             {
               "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-ApplicationInsightsConnectionString/8cc317edebe74dc1bde1c374f410b35c)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IOT-API-ApplicationInsightsConnectionString/)"
             },
             {
               "name": "AzureWebJobsStorage",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/4b208141f28f4ed4ad0801c58eb42f73)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/AzureWebJobStorage-IoT/)"
             },
             {
               "name": "CosmosDBConnection",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/e9229de8023549308c8771ddcc5d5268)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/CosmosDBConnection-IoT/)"
             },
             {
               "name": "destinationmodules",
@@ -185,11 +185,11 @@
             },
             {
               "name": "IoTHubConnection",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IoTHubConnection-MeatGeek/1dc6b8f7974049a2bd6f33dac00615ec)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/IoTHubConnection-MeatGeek/)"
             },
             {
               "name": "MeatGeekIoTServiceConnection",
-              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/MeatGeekIoTServiceConnection/28d05c4415df4f3bb8d757c774335567)"
+              "value": "@Microsoft.KeyVault(SecretUri=https://meatgeek-key-vault.vault.azure.net/secrets/MeatGeekIoTServiceConnection/)"
             },
             {
               "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
