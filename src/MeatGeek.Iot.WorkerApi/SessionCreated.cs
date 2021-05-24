@@ -79,7 +79,7 @@ namespace MeatGeek.IoT.WorkerApi
             catch (Exception ex)
             {
                 _log.LogError(ex, "<-- SessionCreated Event Grid Trigger: Unhandled exception");
-                return new BadRequestObjectResult("SessionCreated: Unhandled Exception in function app.");
+                //return new BadRequestObjectResult("SessionCreated: Unhandled Exception in function app.");
             }
         }
         
