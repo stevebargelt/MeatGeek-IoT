@@ -40,7 +40,7 @@ namespace MeatGeek.IoT.WorkerApi
                 log.LogInformation("SessionID = " + sessionId);
                 if (sessionUpdatedEventData.Endtime.HasValue) 
                 {
-                    log.LogInformation("Processing EndSession: EndTiem has a value");
+                    log.LogInformation("Processing EndSession: EndTime has a value");
                     try
                     {
                         var methodRequest = new CloudToDeviceMethod(METHOD_NAME, TimeSpan.FromSeconds(15), TimeSpan.FromSeconds(15));
