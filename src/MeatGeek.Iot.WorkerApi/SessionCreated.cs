@@ -7,6 +7,8 @@ using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
 using MeatGeek.Shared;
 using MeatGeek.Shared.EventSchemas.Sessions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 //using MeatGeek.IoT.WorkerApi.Configurations;
 
 namespace MeatGeek.IoT.WorkerApi
@@ -31,16 +33,19 @@ namespace MeatGeek.IoT.WorkerApi
             {
                 SessionCreatedEventData sessionCreatedEventData;
 
-                if (eventGridEvent.Data is SessionCreatedEventData)
-                {
-                    sessionCreatedEventData = (SessionCreatedEventData)eventGridEvent.Data;
-                    log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data --> SessionCreatedEventData");
-                }
-                else
-                {
-                    log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data is not in expected format.");
-                    throw new InvalidOperationException("Event Grid Data is not in expected format.");
-                }
+                var data = eventGridEvent.Data as JObject;
+                sessionCreatedEventData = data.ToObject<SessionCreatedEventData>();
+
+                // if (data.To is SessionCreatedEventData)
+                // {
+                //     sessionCreatedEventData = (SessionCreatedEventData)eventGridEvent.Data.ToString();
+                //     log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data --> SessionCreatedEventData");
+                // }
+                // else
+                // {
+                //     log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data is not in expected format.");
+                //     throw new InvalidOperationException("Event Grid Data is not in expected format.");
+                // }
                 var smokerId = sessionCreatedEventData.SmokerId;
                 var sessionId = sessionCreatedEventData.Id;
                 log.LogInformation("SmokerID = " + smokerId);
