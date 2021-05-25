@@ -18,7 +18,7 @@ namespace MeatGeek.IoT.WorkerApi
 
 
         private static ServiceClient _iothubServiceClient = ServiceClient.CreateFromConnectionString(Environment.GetEnvironmentVariable("MeatGeekIoTServiceConnection", EnvironmentVariableTarget.Process));
-        private const string METHOD_NAME = "SessionCreated";
+        private const string METHOD_NAME = "SetSessionId";
         private const string MODULE_NAME = "Telemetry";
 
         [FunctionName("SessionCreated")]
@@ -33,29 +33,20 @@ namespace MeatGeek.IoT.WorkerApi
             {
                 SessionCreatedEventData sessionCreatedEventData;
 
+                //TODO: Maybe some error/exception handling here??
                 var data = eventGridEvent.Data as JObject;
                 sessionCreatedEventData = data.ToObject<SessionCreatedEventData>();
 
-                // if (data.To is SessionCreatedEventData)
-                // {
-                //     sessionCreatedEventData = (SessionCreatedEventData)eventGridEvent.Data.ToString();
-                //     log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data --> SessionCreatedEventData");
-                // }
-                // else
-                // {
-                //     log.LogInformation("SessionCreated Event Grid Trigger: Event Grid Data is not in expected format.");
-                //     throw new InvalidOperationException("Event Grid Data is not in expected format.");
-                // }
                 var smokerId = sessionCreatedEventData.SmokerId;
                 var sessionId = sessionCreatedEventData.Id;
                 log.LogInformation("SmokerID = " + smokerId);
                 log.LogInformation("SessionID = " + sessionId);
-                var methodRequest = new CloudToDeviceMethod(METHOD_NAME, TimeSpan.FromSeconds(15), TimeSpan.FromSeconds(15));
-                methodRequest.SetPayloadJson(sessionId);
-
                 try
                 {
-                    log.LogInformation($"Invoking method telemetryinterval on module {smokerId}/{MODULE_NAME}.");
+                    var methodRequest = new CloudToDeviceMethod(METHOD_NAME, TimeSpan.FromSeconds(15), TimeSpan.FromSeconds(15));
+                    methodRequest.SetPayloadJson(sessionId);
+
+                    log.LogInformation($"Invoking method Session on module {smokerId}/{MODULE_NAME}.");
                     // Invoke direct method
                     var result = await _iothubServiceClient.InvokeDeviceMethodAsync(smokerId, MODULE_NAME, methodRequest).ConfigureAwait(false);
 
