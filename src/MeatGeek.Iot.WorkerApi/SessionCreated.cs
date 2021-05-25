@@ -41,10 +41,11 @@ namespace MeatGeek.IoT.WorkerApi
                 var sessionId = sessionCreatedEventData.Id;
                 log.LogInformation("SmokerID = " + smokerId);
                 log.LogInformation("SessionID = " + sessionId);
+                
                 try
                 {
                     var methodRequest = new CloudToDeviceMethod(METHOD_NAME, TimeSpan.FromSeconds(15), TimeSpan.FromSeconds(15));
-                    methodRequest.SetPayloadJson(sessionId);
+                    methodRequest.SetPayloadJson($"\"{sessionId}\"");
 
                     log.LogInformation($"Invoking method Session on module {smokerId}/{MODULE_NAME}.");
                     // Invoke direct method
@@ -53,13 +54,16 @@ namespace MeatGeek.IoT.WorkerApi
                     if (IsSuccessStatusCode(result.Status))
                     {
                         log.LogInformation($"[{smokerId}/{MODULE_NAME}] Successful direct method call result code={result.Status}");
-                        
                     }
                     else
                     {
                         log.LogWarning($"[{smokerId}/{MODULE_NAME}] Unsuccessful direct method call result code={result.Status}");
                     }
                     //return new ObjectResult(result);
+                }
+                catch(ArgumentException e) 
+                {
+                    log.LogError(e, $"Argument exception methodRequest = new CloudToDeviceMethod...");
                 }
                 catch (Exception e)
                 {
